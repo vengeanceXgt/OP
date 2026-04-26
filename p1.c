@@ -1,25 +1,60 @@
 #include <stdio.h>
 
+struct Pair {
+    int min;
+    int max;
+};
+
+struct Pair minMax(int arr[], int low, int high) {
+    struct Pair result, left, right;
+
+    // Base Case 1: Only one element
+    if (low == high) {
+        result.min = arr[low];
+        result.max = arr[low];
+        return result;
+    }
+
+    // Base Case 2: Two elements
+    if (high == low + 1) {
+        if (arr[low] < arr[high]) {
+            result.min = arr[low];
+            result.max = arr[high];
+        } else {
+            result.min = arr[high];
+            result.max = arr[low];
+        }
+        return result;
+    }
+
+    // Divide
+    int mid = (low + high) / 2;
+
+    // Conquer
+    left = minMax(arr, low, mid);
+    right = minMax(arr, mid + 1, high);
+
+    // Combine
+    result.min = (left.min < right.min) ? left.min : right.min;
+    result.max = (left.max > right.max) ? left.max : right.max;
+
+    return result;
+}
+
 int main() {
-    int n, i;
+    int n, arr[100];
     printf("Enter size: ");
     scanf("%d", &n);
 
-    int arr[n];
     printf("Enter elements:\n");
-    for(i = 0; i < n; i++)
+    for (int i = 0; i < n; i++)
         scanf("%d", &arr[i]);
 
-    int min = arr[0], max = arr[0];
+    struct Pair ans = minMax(arr, 0, n - 1);
 
-    for(i = 1; i < n; i++) {
-        if(arr[i] < min)
-            min = arr[i];
-        if(arr[i] > max)
-            max = arr[i];
-    }
+    printf("Minimum = %d\n", ans.min);
+    printf("Maximum = %d\n", ans.max);
 
-    printf("Min = %d\nMax = %d", min, max);
     return 0;
 }
 /* 1. MIN-MAX (ARRAY)
