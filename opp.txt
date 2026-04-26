@@ -1,0 +1,116 @@
+/* MIN-MAX USING DIVIDE & CONQUER
+
+   Algorithm:
+
+   minMax(arr, low, high):
+
+   1. If low == high:
+        min = max = arr[low]
+
+   2. Else if high == low + 1:
+        If arr[low] < arr[high]:
+            min = arr[low]
+            max = arr[high]
+        Else:
+            min = arr[high]
+            max = arr[low]
+
+   3. Else:
+        mid = (low + high) / 2
+
+        left  = minMax(arr, low, mid)
+        right = minMax(arr, mid + 1, high)
+
+        min = minimum(left.min, right.min)
+        max = maximum(left.max, right.max)
+
+   4. Return (min, max)
+
+
+   Time Complexity: O(n)
+   Space Complexity: O(log n)  // recursion stack
+
+   Comparisons:
+   - Approx: 3n/2 comparisons (better than 2n-2 in linear method)
+*/
+✅ 2. Merge Sort
+MergeSort(A, l, r):
+    If l < r:
+        m = (l + r) / 2
+        MergeSort(A, l, m)
+        MergeSort(A, m+1, r)
+        Merge(A, l, m, r)
+
+Merge(A, l, m, r):
+    Create temp arrays L and R
+    Copy elements
+    Merge L and R in sorted order back to A
+✅ 3. Dijkstra’s Algorithm
+Step 1: Initialize dist[] = ∞, visited[] = false
+Step 2: dist[source] = 0
+Step 3: Repeat V times:
+            Select vertex u with minimum dist and not visited
+            Mark u as visited
+            For each neighbor v of u:
+                If dist[u] + weight(u,v) < dist[v]
+                    Update dist[v]
+Step 4: Print shortest distances
+✅ 4. Prim’s Algorithm (MST)
+Step 1: Initialize key[] = ∞, visited[] = false
+Step 2: key[0] = 0, parent[0] = -1
+Step 3: Repeat V times:
+            Select vertex u with minimum key and not visited
+            Mark u as visited
+            For each adjacent vertex v:
+                If weight(u,v) < key[v] and v not visited
+                    parent[v] = u
+                    key[v] = weight(u,v)
+Step 4: Print MST edges using parent[]
+✅ 5. Bellman-Ford Algorithm
+Step 1: Initialize dist[] = ∞
+Step 2: dist[source] = 0
+Step 3: Repeat (V-1) times:
+            For each edge (u, v, w):
+                If dist[u] + w < dist[v]
+                    Update dist[v]
+Step 4: Check for negative cycle:
+            If further relaxation possible → negative cycle exists
+Step 5: Print distances
+✅ 6. Longest Common Subsequence (LCS)
+Step 1: Let strings X (length m), Y (length n)
+Step 2: Create table L[m+1][n+1]
+Step 3: For i = 0 to m
+            For j = 0 to n
+                If i==0 or j==0 → L[i][j]=0
+                Else if X[i-1]==Y[j-1]
+                    L[i][j] = L[i-1][j-1] + 1
+                Else
+                    L[i][j] = max(L[i-1][j], L[i][j-1])
+Step 4: L[m][n] gives LCS length
+✅ 7. N-Queens (Backtracking)
+Solve(row):
+    If row == N → solution found
+    For col = 0 to N-1:
+        If placing queen at (row,col) is safe:
+            Place queen
+            If Solve(row+1) → return true
+            Remove queen (backtrack)
+    Return false
+✅ 8. Naïve String Matching
+Step 1: For i = 0 to n-m:
+            For j = 0 to m-1:
+                If text[i+j] ≠ pattern[j]
+                    Break
+            If j == m → pattern found at index i
+✅ 9. KMP Algorithm
+Step 1: Compute LPS array for pattern
+Step 2: Initialize i=0, j=0
+Step 3: While i < n:
+            If text[i] == pattern[j]
+                i++, j++
+            If j == m:
+                Pattern found at (i-j)
+                j = LPS[j-1]
+            Else if mismatch:
+                If j ≠ 0 → j = LPS[j-1]
+                Else → i++
