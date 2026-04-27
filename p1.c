@@ -1,48 +1,43 @@
 #include <stdio.h>
 
-struct Pair {
-    int min;
-    int max;
-};
+void minMax(int arr[], int low, int high, int *min, int *max) {
 
-struct Pair minMax(int arr[], int low, int high) {
-    struct Pair result, left, right;
-
-    // Base Case 1: Only one element
+    // Case 1: One element
     if (low == high) {
-        result.min = arr[low];
-        result.max = arr[low];
-        return result;
+        *min = arr[low];
+        *max = arr[low];
+        return;
     }
 
-    // Base Case 2: Two elements
+    // Case 2: Two elements
     if (high == low + 1) {
         if (arr[low] < arr[high]) {
-            result.min = arr[low];
-            result.max = arr[high];
+            *min = arr[low];
+            *max = arr[high];
         } else {
-            result.min = arr[high];
-            result.max = arr[low];
+            *min = arr[high];
+            *max = arr[low];
         }
-        return result;
+        return;
     }
 
     // Divide
     int mid = (low + high) / 2;
 
+    int min1, max1, min2, max2;
+
     // Conquer
-    left = minMax(arr, low, mid);
-    right = minMax(arr, mid + 1, high);
+    minMax(arr, low, mid, &min1, &max1);
+    minMax(arr, mid + 1, high, &min2, &max2);
 
     // Combine
-    result.min = (left.min < right.min) ? left.min : right.min;
-    result.max = (left.max > right.max) ? left.max : right.max;
-
-    return result;
+    *min = (min1 < min2) ? min1 : min2;
+    *max = (max1 > max2) ? max1 : max2;
 }
 
 int main() {
-    int n, arr[100];
+    int n, arr[100], min, max;
+
     printf("Enter size: ");
     scanf("%d", &n);
 
@@ -50,10 +45,10 @@ int main() {
     for (int i = 0; i < n; i++)
         scanf("%d", &arr[i]);
 
-    struct Pair ans = minMax(arr, 0, n - 1);
+    minMax(arr, 0, n - 1, &min, &max);
 
-    printf("Minimum = %d\n", ans.min);
-    printf("Maximum = %d\n", ans.max);
+    printf("Minimum = %d\n", min);
+    printf("Maximum = %d\n", max);
 
     return 0;
 }
