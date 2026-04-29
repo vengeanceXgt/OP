@@ -1,0 +1,102 @@
+Operating Systems (OS) viva questions test core concepts across key units like processes, memory, synchronization, and more. Below are detailed, unit-wise Q&A sets with concise explanations, examples, and comparisons for exam readiness.
+Unit 1: OS Introduction
+Q1: What is an Operating System?
+A: An OS is system software that acts as an intermediary between users/applications and hardware, managing resources like CPU, memory, and I/O devices for efficient execution. It provides services such as process management, memory allocation, file handling, and security.
+Q2: List key functions of an OS.
+A: Core functions include process management (creation/scheduling), memory management (allocation/deallocation), file management (storage/retrieval), device management (I/O control), security/protection, and user interface (CLI/GUI like BASH shell). For example, BASH enables scripting for automation.
+Q3: Classify OS types.
+A: Batch (jobs processed sequentially), Time-sharing (multi-user via time slices), Real-time (predictable response, e.g., embedded systems), Distributed (multi-machine coordination), and Multiprocessor (parallel processing).
+Q4: Explain system calls.
+A: System calls are programmatic interfaces for user programs to request OS services (e.g., fork() for process creation, read() for I/O). They switch from user mode to kernel mode for privileged operations.
+Unit 2: Processes & Scheduling
+Q5: Define process and its states.
+A: A process is a program in execution with CPU, memory, and resources. States: New (created), Ready (waiting for CPU), Running (executing), Waiting (I/O block), Terminated (finished).
+Q6: Differentiate process and thread.
+A:
+Q7: Compare scheduling algorithms.
+A: FCFS (simple FIFO, convoy effect), SJF (optimal wait time, starvation risk), Priority (priority-based, aging prevents starvation), Round Robin (time quantum, fair for time-sharing).
+Q8: What are scheduling criteria?
+A: CPU utilization (keep busy), throughput (processes/hour), turnaround time (submit-to-complete), waiting time (ready queue), response time (first response).
+Unit 3: Synchronization & Deadlock
+Q9: What is critical section problem?
+A: Race condition where multiple processes access shared resources concurrently, needing mutual exclusion. Solutions: Software (Peterson's algorithm: turn + flag variables), Hardware (Test-and-Set), Semaphores (wait/signal operations).
+Q10: Explain semaphore with classical problems.
+A: Semaphore is a counter for signaling (binary=mutex). Problems: Producer-Consumer (buffers), Readers-Writers (readers concurrent, writers exclusive), Dining Philosophers (resource deadlock avoidance via hierarchy).
+Q11: List deadlock conditions and prevention.
+A: Mutual exclusion, hold-and-wait, no preemption, circular wait. Prevention: Resource ordering, preemption, Banker's algorithm (safe state check via avoidance).
+Q12: Describe Banker's Algorithm.
+A: Avoids deadlock by simulating allocations; checks if remaining resources allow all processes to finish (need matrix ≤ available).
+Unit 4: Memory Management
+Q13: Compare paging vs. segmentation.
+A:
+Q14: Explain virtual memory and page replacement.
+A: VM maps logical to physical memory via demand paging. Algorithms: FIFO (queue, Belady anomaly), Optimal (future reference, ideal), LRU (recent use stack, hardware-supported). Thrashing occurs on high page faults; fix via working-set model.
+Q15: What is demand paging?
+A: Pages loaded on fault (not pre-loaded); valid/invalid bits track. Copy-on-write optimizes sharing.
+Unit 5: File System & I/O
+Q16: Describe file allocation methods.
+A: Contiguous (fast access, external fragmentation), Linked (no frag, slow random), Indexed (fast random via index block).
+Q17: Explain disk scheduling algorithms.
+A: FCFS (simple), SSTF (min seek, starvation), SCAN (elevator, fair), C-SCAN (uniform wait), LOOK/C-LOOK (optimized SCAN).
+Q18: What is RAID?
+A: Redundant Array of Independent Disks; levels like RAID-0 (striping, speed), RAID-1 (mirroring, fault-tolerant), RAID-5 (parity striping).
+Unit 6: Case Studies
+Q19: What is XV6?
+A: Teaching OS based on Unix v6; features processes, file system, simple scheduler. Used for hands-on kernel understanding.
+Q20: Differentiate OS types in case studies.
+A:
+Practice these with diagrams (e.g., process state transition, Banker's matrices) for better viva performance.
+Here are additional detailed viva questions and answers for each Operating Systems unit, building on the previous set. These focus on deeper concepts, examples, and comparisons for thorough preparation.
+Unit 1: OS Introduction
+Q21: Differentiate kernel and shell.
+A: Kernel is the core OS managing hardware (monolithic like Linux or microkernel like Minix); shell (e.g., BASH) is a user interface for command execution and scripting (e.g., loops, conditionals in .sh files). Shell scripting automates tasks like backups via #!/bin/bash.
+Q22: What are OS structures?
+A: Simple (MS-DOS, layered), Monolithic (efficient, Linux), Microkernel (modular, Mach), Exokernel (minimal, app-controlled hardware), Hybrid (Windows NT: combines monolithic speed with modularity).
+Q23: Explain system call implementation.
+A: User program invokes via library (e.g., libc), triggers trap (software interrupt) to kernel mode; parameters passed via registers/stack, kernel executes, returns via RET. Example: open() syscall for file access.
+Unit 2: Processes & Scheduling
+Q24: Describe process control block (PCB).
+A: PCB stores process state (registers, PC, PID, priority, memory limits). OS uses it for context switching during scheduling.
+Q25: Compare multithreading models.
+A:
+Q26: What is real-time scheduling?
+A: Ensures deadlines (hard: miss=fail, soft: degraded). RM (rate monotonic: short period first) vs. EDF (earliest deadline first); used in avionics.
+Q27: Explain interrupts.
+A: Hardware (timer, I/O) or software (syscall); interrupt handler saves context, services request, resumes. Priority levels prevent low-priority from starving high ones.
+Unit 3: Synchronization & Deadlock
+Q28: Compare Peterson’s and Bakery algorithm.
+A: Both software solutions for mutual exclusion (2 processes). Peterson’s uses turn/flag; Bakery issues tickets for multiple processes (fairer, like queue numbers).
+Q29: What are monitors?
+A: High-level synchronization (one process at a time); condition variables (wait/signal) solve producer-consumer without semaphores. Java uses them.
+Q30: Explain deadlock detection.
+A: Resource Allocation Graph (RAG: cycles=deadlock) or Wait-For Graph; invoke periodically via banker's-like simulation. Recovery: terminate victim (min cost) or rollback.
+Q31: Safe state in Banker's?
+A: Sequence exists where all processes finish without deadlock (simulate Max-Need - Allocated ≤ Available iteratively).
+Unit 4: Memory Management
+Q32: Logical vs. physical address space.
+A: Logical (generated by CPU, 0 to max); physical (RAM frames). MMU maps via base/limit or page table (e.g., page# * page_size + offset).
+Q33: Compare page replacement algorithms.
+A:
+Q34: What is thrashing and working set?
+A: Excessive paging (low CPU use); working set = min pages for locality (keep in memory). Fix: suspend low-priority processes.
+Q35: Explain segmentation with paging.
+A: Segments (variable, code/data) paged into frames; dual tables reduce fragmentation (e.g., MULTICS).
+Unit 5: File System & I/O
+Q36: Directory structures.
+A: Single-level (simple), Two-level (per-user), Tree (hierarchical, Unix /home), Acyclic Graph (sharing via links).
+Q37: Free space management.
+A: Bitmap (bits per block), Linked list (pointers), Grouping (count+list), Counting (start/count).
+Q38: Compare disk scheduling.
+A:
+Q39: Disk structure basics.
+A: Tracks, sectors, cylinders; seek (head move), rotational latency, transfer time. RAID-10 combines 1+0 for speed+tolerance.
+Unit 6: Case Studies
+Q40: Key features of XV6.
+A: Simple Unix-like (9k LOC); syscalls (fork/exec), ELF loading, page tables, traps. No VM, basic FS.
+Q41: Distributed OS challenges.
+A: Transparency (location/access), fault tolerance (replication), scalability (Amoeba: processor pools).
+Q42: Real-time OS traits.
+A: Determinism (VxWorks: priority inheritance), small footprint, preemptive kernel.
+Q43: Mobile OS specifics.
+A: Android (Zygote forking, Binder IPC), iOS (XNU kernel, sandboxing); power mgmt via doze mode.
+Use these alongside diagrams (e.g., semaphore ops, RAG) and practice explaining trade-offs for viva success.
